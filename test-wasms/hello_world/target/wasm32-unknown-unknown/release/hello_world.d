@@ -1,1 +1,0 @@
-/Users/jacky.li/Desktop/MyProjects/wasmer-demo/test-wasms/hello_world/target/wasm32-unknown-unknown/release/hello_world.wasm: /Users/jacky.li/Desktop/MyProjects/wasmer-demo/test-wasms/hello_world/src/lib.rs
