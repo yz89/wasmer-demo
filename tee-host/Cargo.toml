@@ -6,11 +6,11 @@ edition = "2018"
 [workspace]
 
 [[bin]] 
-name = "gpc-server"
+name = "grpc-server"
 path = "src/server.rs"
 
 [[bin]] 
-name = "gpc-client"
+name = "grpc-client"
 path = "src/client.rs"
 
 [[bin]]
