@@ -30,7 +30,7 @@ fn get_compiler(limit: u64) -> impl Compiler {
   c
 }
 
-fn main() -> error::Result<()> {
+pub fn start() -> error::Result<()> {
   let metering_compiler = get_compiler(1000);
   let wasm_binary = WASM;
   let metering_module = compile_with(&wasm_binary, &metering_compiler).unwrap();
@@ -51,7 +51,7 @@ fn main() -> error::Result<()> {
 }
 
 
-// function list
+// function list start
 
 fn print_str(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) {
   
@@ -63,3 +63,6 @@ fn print_str(ctx: &mut Ctx, ptr: WasmPtr<u8, Array>, len: u32) {
   // Print it!
   println!("{}", string);
 }
+
+// function list end
+

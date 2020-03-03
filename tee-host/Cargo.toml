@@ -5,8 +5,24 @@ edition = "2018"
 
 [workspace]
 
+[[bin]] 
+name = "gpc-server"
+path = "src/server.rs"
+
+[[bin]] 
+name = "gpc-client"
+path = "src/client.rs"
+
 [dependencies]
 wasmer-runtime = "0.14.1"
 wasmer-middleware-common = "0.14.1"
 wasmer-runtime-core = "0.14.1"
 wasmer-singlepass-backend = "0.14.1"
+
+tonic = "0.1.1"
+prost = "0.6"
+tokio = { version = "0.2", features = ["macros"] }
+
+[build-dependencies]
+tonic-build = "0.1.1"
+

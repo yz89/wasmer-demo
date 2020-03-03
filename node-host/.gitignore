@@ -1,0 +1,15 @@
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage
+node_modules/
+.npm
+.data
+package-lock.json
+
+upload/*.x*
+upload/*.json
+upload/*.html
+upload/*.png
+!upload/test/
