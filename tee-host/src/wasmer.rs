@@ -6,7 +6,7 @@ extern crate wasmer_singlepass_backend;
 use std::sync::{Arc, Mutex};
 use wasmer_runtime::{
   error, func, imports, instantiate, Array, Ctx, WasmPtr, Func, Value,
-  compile_with
+  compile_with, Instance
 };
 use wasmer_runtime_core::{
   backend::Compiler, 
@@ -30,7 +30,7 @@ fn get_compiler(limit: u64) -> impl Compiler {
   c
 }
 
-pub fn start() -> error::Result<()> {
+fn get_instance() -> Instance {
   let metering_compiler = get_compiler(1000);
   let wasm_binary = WASM;
   let metering_module = compile_with(&wasm_binary, &metering_compiler).unwrap();
@@ -41,13 +41,32 @@ pub fn start() -> error::Result<()> {
   };
 
   let metering_instance = metering_module.instantiate(&metering_import_object).unwrap();
-  // wasmer_middleware_common::metering::set_points_used(&mut metering_instance, 0);
-  metering_instance.call("execute", &[])?;
+
+  metering_instance
+}
+
+pub fn main() -> error::Result<()> {
+  let metering_instance = get_instance();
+
+  let mut rs = metering_instance.call("execute", &[])?;
 
   let x = wasmer_middleware_common::metering::get_points_used(&metering_instance);
   
-  println!("gas: {}", x);
+  println!("gas: {:}", x);
   Ok(())
+
+}
+
+pub fn add(x: i64, y: i64) -> error::Result<i64> {
+  let metering_instance = get_instance();
+  let rs = metering_instance.call("add", &[Value::I64(x), Value::I64(y)])?;
+
+  let gas = wasmer_middleware_common::metering::get_points_used(&metering_instance);
+  
+  let n = rs.get(0).unwrap().to_u128() as i64;
+
+  println!("wasm result: {} ||| gas: {}", n, gas);
+  Ok(n)
 }
 
 

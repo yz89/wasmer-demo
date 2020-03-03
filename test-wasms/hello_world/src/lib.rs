@@ -13,4 +13,11 @@ pub extern "C" fn execute() {
     }
 }
 
+#[no_mangle]
+pub extern "C" fn add(x:i64, y:i64) -> i64 {
+    unsafe {
+        x+y
+    }
+}
+
 

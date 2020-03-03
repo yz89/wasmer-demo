@@ -1,7 +1,7 @@
 use tonic::{transport::Server, Request, Response, Status};
 
 use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::{HelloReply, HelloRequest};
+use hello_world::{HelloReply, HelloRequest, AddNumberRequest, AddNumberResponse};
 
 mod wasmer;
 
@@ -20,11 +20,23 @@ impl Greeter for MyGreeter {
     ) -> Result<Response<HelloReply>, Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
-        wasmer::start().unwrap();
+        let result = wasmer::add(23, 323).unwrap();
 
         let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
+            message: format!("result : {}", result),
         };
+        Ok(Response::new(reply))
+    }
+
+    async fn add_number(&self, request: Request<AddNumberRequest>) -> Result<Response<AddNumberResponse>, Status> {
+        println!("Got a request from {:?}", request.remote_addr());
+
+        let param = request.into_inner();
+        let result = wasmer::add(param.x, param.y).unwrap();
+        let reply = hello_world::AddNumberResponse {
+            result: format!("{}", result),
+        };
+
         Ok(Response::new(reply))
     }
 }

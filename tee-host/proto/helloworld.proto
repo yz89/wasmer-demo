@@ -3,6 +3,8 @@ package helloworld;
 
 service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply);
+  
+  rpc AddNumber (AddNumberRequest) returns (AddNumberResponse);
 }
 
 message HelloRequest {
@@ -11,4 +13,13 @@ message HelloRequest {
 
 message HelloReply {
   string message = 1;
+}
+
+message AddNumberRequest {
+  int64 x = 1;
+  int64 y = 2;
+}
+
+message AddNumberResponse {
+  string result = 1;
 }

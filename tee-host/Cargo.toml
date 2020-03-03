@@ -13,6 +13,10 @@ path = "src/server.rs"
 name = "gpc-client"
 path = "src/client.rs"
 
+[[bin]]
+name = "wasmer"
+path = "src/wasmer.rs"
+
 [dependencies]
 wasmer-runtime = "0.14.1"
 wasmer-middleware-common = "0.14.1"

@@ -43,6 +43,8 @@ import './config';
     app.use(middleware)
     app.use(fileUpload())
 
+    // app.use(express.static('public'));
+    // app.use('/rs', express.static('wasm/target/wasm32-unknown-unknown/release'));
 
     app.use(prefix, router)
 
